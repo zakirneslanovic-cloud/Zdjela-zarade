@@ -77,13 +77,11 @@
       const text = await response.text();
       const [header, ...rows] = text.split('\n').map(r => r.split(','));
       const [cilj, ostvareno, reklamacije] = rows[0].map(v => parseFloat(v));
-      const zarada = ostvareno - reklamacije;
       const postotak = ((ostvareno - reklamacije) / cilj) * 100;
 
       document.getElementById('cilj').innerText = cilj.toLocaleString('bs-BA') + ' KM';
       document.getElementById('ostvareno').innerText = ostvareno.toLocaleString('bs-BA') + ' KM';
       document.getElementById('reklamacije').innerText = '-' + reklamacije.toLocaleString('bs-BA') + ' KM';
-      document.getElementById('zarada').innerText = zarada.toLocaleString('bs-BA') + ' KM';
       document.getElementById('percent').innerText = postotak.toFixed(1) + '%';
 
       // Animacija punjenja
@@ -100,6 +98,7 @@
 </body>
 
 </html>
+
 
 
 
