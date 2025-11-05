@@ -73,7 +73,7 @@
 
   <script>
     async function ucitajPodatke() {
-      const sheetURL = https://docs.google.com/spreadsheets/d/e/2PACX-1vQIWP46qX3ZQhZn0UJYQWnBYPkTq4LNaXkLu-wjjPM4YLfvL3x3dObtelnQNFWja_ZnQSD4FXLfabJ0/pub?output=csv;
+      const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIWP46qX3ZQhZn0UJYQWnBYPkTq4LNaXkLu-wjjPM4YLfvL3x3dObtelnQNFWja_ZnQSD4FXLfabJ0/pub?output=csv";
       const response = await fetch(sheetURL);
       const text = await response.text();
       const [header, ...rows] = text.split('\n').map(r => r.split(','));
@@ -99,4 +99,5 @@
     setInterval(ucitajPodatke, 10 * 60 * 1000);
   </script>
 </body>
+
 </html>
