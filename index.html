@@ -55,11 +55,12 @@
     }
     .bowl-logo {
       position: absolute;
-      top: 10px;          /* udaljenost od vrha posude */
+      bottom: 0;          /*početna pozicija */
       left: 50%;          /* centrirano horizontalno */
       transform: translateX(-50%);
       width: 80px;        /* veličina loga */
       pointer-events: none; /* da ne blokira animaciju punjenja */
+      transition: bottom 2s ease-in-out;   /* glatko pomjeranje */
       z-index: 2;         /* iznad punjenja */
 }
   </style>
@@ -75,7 +76,7 @@
     <div class="bowl">
   <div class="fill" id="fill"></div>
   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUzQNVeBbbWkDTosCqZezmOTVAfRMhYrcBsQ&s" 
-       alt="Logo firme" class="bowl-logo">
+       alt="Logo firme" class="bowl-logo" id="logo">
 </div>
 
     <div class="percentage" id="percent">...</div>
@@ -101,6 +102,8 @@
       setTimeout(() => {
         fill.style.height = postotak + '%';
       }, 100); // mala pauza za glatku animaciju
+      const logo = document.getElementById('logo');
+      logo.style.bottom = `calc(${postotak}% - 40px)`; // 40px = pola visine loga
     }
 
     ucitajPodatke();
@@ -109,17 +112,6 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
 
 
 
