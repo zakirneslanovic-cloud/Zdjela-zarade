@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zdjela Zarade</title>
+  <style>
+    body {
+      background-color: #0f1b2b;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 40px 60px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.4);
+    }
+    .metrics {
+      margin-bottom: 30px;
+      font-size: 1.3rem;
+      line-height: 2rem;
+    }
+    .metrics span {
+      display: block;
+    }
+    .bowl {
+      width: 300px;
+      height: 150px;
+      border-radius: 0 0 150px 150px;
+      background: linear-gradient(to top, #2563eb, #1e3a8a);
+      overflow: hidden;
+      position: relative;
+      margin: 0 auto;
+    }
+    .fill {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to top, #fbbf24, #f59e0b);
+      transition: height 2s ease-in-out;
+    }
+    .percentage {
+      font-size: 3rem;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="metrics">
+      <span>🎯 Cilj: <strong id="cilj">...</strong></span>
+      <span>💰 Ostvareno: <strong id="ostvareno">...</strong></span>
+      <span>⚠️ Reklamacije: <strong id="reklamacije">...</strong></span>
+      <span>📈 Neto zarada: <strong id="zarada">...</strong></span>
+    </div>
+
+    <div class="bowl">
+      <div class="fill" id="fill"></div>
+    </div>
+
+    <div class="percentage" id="percent">...</div>
+  </div>
+
+  <script>
+    async function ucitajPodatke() {
+      const sheetURL = https://docs.google.com/spreadsheets/d/e/2PACX-1vQIWP46qX3ZQhZn0UJYQWnBYPkTq4LNaXkLu-wjjPM4YLfvL3x3dObtelnQNFWja_ZnQSD4FXLfabJ0/pub?output=csv;
+      const response = await fetch(sheetURL);
+      const text = await response.text();
+      const [header, ...rows] = text.split('\n').map(r => r.split(','));
+      const [cilj, ostvareno, reklamacije] = rows[0].map(v => parseFloat(v));
+      const zarada = ostvareno - reklamacije;
+      const postotak = (zarada / cilj) * 100;
+
+      document.getElementById('cilj').innerText = cilj.toLocaleString('bs-BA') + ' KM';
+      document.getElementById('ostvareno').innerText = ostvareno.toLocaleString('bs-BA') + ' KM';
+      document.getElementById('reklamacije').innerText = '-' + reklamacije.toLocaleString('bs-BA') + ' KM';
+      document.getElementById('zarada').innerText = zarada.toLocaleString('bs-BA') + ' KM';
+      document.getElementById('percent').innerText = postotak.toFixed(1) + '%';
+
+      // Animacija punjenja
+      const fill = document.getElementById('fill');
+      fill.style.height = '0%'; // reset pre animacije
+      setTimeout(() => {
+        fill.style.height = postotak + '%';
+      }, 100); // mala pauza za glatku animaciju
+    }
+
+    ucitajPodatke();
+    setInterval(ucitajPodatke, 10 * 60 * 1000);
+  </script>
+</body>
+</html>
