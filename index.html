@@ -53,10 +53,18 @@
       margin-top: 20px;
       font-weight: bold;
     }
+    .bowl-logo {
+      position: absolute;
+      top: 10px;          /* udaljenost od vrha posude */
+      left: 50%;          /* centrirano horizontalno */
+      transform: translateX(-50%);
+      width: 80px;        /* veličina loga */
+      pointer-events: none; /* da ne blokira animaciju punjenja */
+      z-index: 2;         /* iznad punjenja */
+}
   </style>
 </head>
 <body>
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUzQNVeBbbWkDTosCqZezmOTVAfRMhYrcBsQ&s" alt="Logo firme" id="logo" style="width:150px; display:block; margin-bottom:20px;">
   <div class="container">
     <div class="metrics">
       <span>🎯 Cilj: <strong id="cilj">...</strong></span>
@@ -65,8 +73,10 @@
     </div>
 
     <div class="bowl">
-      <div class="fill" id="fill"></div>
-    </div>
+  <div class="fill" id="fill"></div>
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUzQNVeBbbWkDTosCqZezmOTVAfRMhYrcBsQ&s" 
+       alt="Logo firme" class="bowl-logo">
+</div>
 
     <div class="percentage" id="percent">...</div>
   </div>
@@ -99,6 +109,7 @@
 </body>
 
 </html>
+
 
 
 
