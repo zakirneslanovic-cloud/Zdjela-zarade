@@ -78,7 +78,7 @@
       const [header, ...rows] = text.split('\n').map(r => r.split(','));
       const [cilj, ostvareno, reklamacije] = rows[0].map(v => parseFloat(v));
       const zarada = ostvareno - reklamacije;
-      const postotak = (zarada / cilj) * 100;
+      const postotak = ((ostvareno - reklamacije) / cilj) * 100;
 
       document.getElementById('cilj').innerText = cilj.toLocaleString('bs-BA') + ' KM';
       document.getElementById('ostvareno').innerText = ostvareno.toLocaleString('bs-BA') + ' KM';
@@ -100,6 +100,7 @@
 </body>
 
 </html>
+
 
 
 
